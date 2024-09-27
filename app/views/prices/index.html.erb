@@ -1,0 +1,35 @@
+<div data-controller="multiselect"
+     data-multiselect-preload-url-value="/items"
+     data-placeholder="Search for items...">
+  <select multiple="multiple"
+          class="multiselect__hidden"
+          data-multiselect-target="hidden"
+          name="form[item_ids][]"
+          id="form_item_ids"></select>
+</div>
+<div id="items" data-controller="items">
+  <canvas id="prices-chart" width="800" height="450"></canvas>
+</div>
+
+<script>
+  const ctx = document.getElementById('prices-chart');
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Prices variations', 'dos', 'TextDecoderStream'],
+      datasets: [{
+        label: '',
+        data: [1, null, 20],
+        spanGaps: true
+      }]
+    },
+    options: {
+      elements: {
+        line: {
+          tension: 0.25
+        }
+      }
+    }
+  });
+</script>

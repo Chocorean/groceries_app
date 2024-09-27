@@ -6,11 +6,21 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body>
-    <%= yield %>
+    <header>  
+      <h1>Grocerices App</h1>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+    <footer>
+      <%= link_to 'Source', 'https://github.com/chocorean/groceries_app', target: '_blank' %>
+    </footer>
   </body>
 </html>
