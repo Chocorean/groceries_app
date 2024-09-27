@@ -1,25 +1,20 @@
+# frozen_string_literal: true
+
 require 'date'
 
+# Units for quantity
 %w[lb kg g oz floz gl qt ct].each do |name|
   Unit.create!(name:)
 end
 
+# Stores
 ['Giant VanNess'].each do |store_name|
   Store.create!(name: store_name)
 end
 store = Store.first
 
-prod_a = Item.create!(name: 'Dummy 1', store:)
-prod_b = Item.create!(name: 'Dummy 2', store:)
-
-50.times do |i|
-  value = Random.rand(20)
-  promo = (i % 7).zero? ? value * Random.rand : nil
-  Price.create!(value:, promo:, item: prod_a, date: Time.zone.today - i)
-  value = Random.rand(20)
-  promo = (i % 7).zero? ? value * Random.rand : nil
-  Price.create!(value:, promo:, item: prod_b, date: Time.zone.today - i)
-end
+# Dummy data for development
+require_relative 'seeds/development' if Rails.env.development?
 
 # first receipts
 [
