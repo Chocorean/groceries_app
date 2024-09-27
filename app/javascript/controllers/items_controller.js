@@ -27,6 +27,7 @@ export default class extends Controller {
     observer.observe(select, { childList: true });
   }
 
+  // Update instance data and query additional data if needed
   async update_local_data(new_ids) {
     const new_item = new_ids > this.item_ids
     this.item_ids = new_ids
@@ -71,8 +72,7 @@ export default class extends Controller {
     chart.update();
   }
 
-  // chart
-  // quand on enleve et remet des data, faut pile le nb de labels que de colonnes
+  // add one line to the grph dataset
   addData(id, label, prices) {
     chart.data.datasets.push({
       data: prices,
@@ -82,6 +82,7 @@ export default class extends Controller {
     });
   }
 
+  // unused
   removeData(id) {
     var index = 0;
     for (let dataset of chart.data.datasets) {
