@@ -4,6 +4,8 @@ class CreateItems < ActiveRecord::Migration[7.1]
       t.string :name, null: false
     end
 
+    add_index :units, :name, unique: true
+
     create_table :items do |t|
       t.string :name, null: false
       t.float :weight, null: true

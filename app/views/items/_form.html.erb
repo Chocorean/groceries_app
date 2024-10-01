@@ -1,0 +1,48 @@
+
+<% if @item.errors.any? %>
+  <div id="error_explanation">
+    <h5><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h5>
+    <ul>
+    <% @item.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+    <hr />
+  </div>
+<% end %>
+
+<%= form_for @item do |f| %>
+  <div id="name" class="required">
+    <%= f.label :name, 'Item' %>
+    <%= f.text_field :name, required: true, list: 'items-list' %>
+    <datalist id="items-list">
+      <% @items.each do |item| %>
+        <option value="<%= item.name %>"></option>
+      <% end %>
+    </datalist>
+  </div>
+  <div id="store" class="required">
+    <%= f.label :store_id %>
+    <%= f.text_field :store_id, required: true, list: 'stores-list', autocomplete: 'off' %>
+    <datalist id="stores-list">
+      <% @stores.each do |store| %>
+        <option value="<%= store.id %>"><%= store.name %></option>
+      <% end %>
+    </datalist>
+  </div>
+  <div id="weight" class="required">
+    <%= f.label :weight %>
+    <%= f.number_field :weight, step: '0.01', required: true %>
+  </div>
+  <div id="unit" class="required">
+    <%= f.label :unit_id, 'Unit' %>
+    <%= f.select :unit_id, options_for_select(@units), required: true %>
+  </div>
+  <div id="price">
+    <%= f.label :price %>
+    <%= number_field_tag :price, nil, step: '0.01' %>
+  </div>
+  <div id="submit">
+    <%= f.submit 'Save' %>
+  </div>
+<% end %>

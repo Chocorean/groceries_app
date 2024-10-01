@@ -1,11 +1,18 @@
-<div data-controller="multiselect"
-     data-multiselect-preload-url-value="/items"
-     data-placeholder="Search for items...">
-  <select multiple="multiple"
-          class="multiselect__hidden"
-          data-multiselect-target="hidden"
-          name="form[item_ids][]"
-          id="form_item_ids"></select>
+<div id="items__select__row">
+  <div data-controller="multiselect"
+       data-multiselect-preload-url-value="/items"
+       data-placeholder="Search for items..."
+       id="items__select">
+    <select multiple="multiple"
+            class="multiselect__hidden"
+            data-multiselect-target="hidden"
+            name="form[item_ids][]"
+            id="form_item_ids"></select>
+  </div>
+  <div id="items__actions">
+    <%= button_to 'Add a price', new_price_url, method: 'get' %>
+    <%= button_to 'Add an item', new_item_url, method: 'get' %>
+  </div>
 </div>
 <div id="items" data-controller="items">
   <canvas id="prices-chart" width="800" height="450"></canvas>

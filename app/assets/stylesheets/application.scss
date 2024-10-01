@@ -16,4 +16,43 @@
 
 :root {
   --accent: #4CAF50;
+  --accent-hover: #ecb666;
+}
+
+#items__select__row {
+  display: grid;
+
+  #items__select {
+    grid-column: 1 / 4;
+    grid-row: 1;
+
+    .multiselect__search {
+      margin-bottom: 0; // correct simple.css
+    }
+  }
+
+  #items__actions {
+    grid-column: 4;
+    grid-row: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: .15rem; // align with select text
+  }
+}
+
+// notifications
+.notice {
+  background-color: blue;
+}
+
+.alert {
+  background-color: red;
+}
+
+// forms
+
+.required>label::after {
+  content: "*";
+  color: red;
 }

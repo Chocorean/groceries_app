@@ -1,0 +1,39 @@
+
+<% if @price.errors.any? %>
+  <div id="error_explanation">
+    <h5><%= pluralize(@price.errors.count, "error") %> prohibited this price from being saved:</h5>
+    <ul>
+    <% @price.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+    <hr />
+  </div>
+<% end %>
+
+<%= form_for @price do |f| %>
+  <div id="item_select" class="required">
+    <%= f.label :item_id, 'Relevant item' %>
+    <%= f.text_field :item_id, require: true, list: 'items-list', autocomplete: 'off' %>
+    <datalist id="items-list">
+      <% @items.each do |item| %>
+        <option value="<%= item.id %>"><%= item.name %></option>
+      <% end %>
+    </datalist>
+  </div>
+  <div id="date" class="required">
+    <%= f.label :date, 'Date of purchase' %>
+    <%= f.date_field :date, required: true %>
+  </div>
+  <div id="price" class="required">
+    <%= f.label :value, 'Price' %>
+    <%= f.number_field :value, required: true, step: '0.01' %>
+  </div>
+  <div id="promo">
+  <%= f.label :value, 'Promo' %>
+  <%= f.number_field :promo, step: '0.01' %>
+  </div>
+  <div id="submit">
+    <%= f.submit 'Save' %>
+  </div>
+<% end %>

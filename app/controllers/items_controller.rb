@@ -2,6 +2,8 @@
 
 # Controller for products
 class ItemsController < ApplicationController
+  before_action :load_data, only: %i[new create]
+
   def index
     @items = Item.all
 
@@ -13,15 +15,45 @@ class ItemsController < ApplicationController
     render json: { name: @item.name, prices: @item.prices.select(:date, :value).order(:date).limit(10) }
   end
 
-  # method used by the search bar to find items by name
-  def search
-    items = Item.where('name LIKE ?', "%#{params[:q]}%").select(:id, :name).limit(5)
-    # add prices if the search returns only one item
-    if items.length == 1
-      item = items.first
-      render json: [{ id: item.id, name: item.name, prices: item.prices.order(:date).limit(10) }]
+  def new
+    @item = Item.new
+  end
+
+  def create
+    @item = Item.new(item_params)
+    price = price_params[:price]
+
+    if @item.save
+      if price_params[:price]
+        p = Price.new(value: price, date: Time.zone.now, item: @item)
+        if p.save
+          redirect_to new_item_path, notice: "Item #{@item.name} and price were successfully created."
+        else
+          redirect_to new_item_path,
+                      notice: "Item #{@item.name} was successfully created, but price could not be saved."
+        end
+      else
+        redirect_to new_item_path, notice: "Item #{@item.name} was successfully created."
+      end
     else
-      render json: items
+      render :new, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(%i[name weight store_id unit_id])
+  end
+
+  def price_params
+    params.permit(:price)
+  end
+
+  # @stores is for a datalist, @units for a select's options, thus the difference of order
+  def load_data
+    @items = Item.select(:name)
+    @stores = Store.select(:id, :name)
+    @units = Unit.select(:id, :name).map { |unit| [unit.name, unit.id] }
   end
 end

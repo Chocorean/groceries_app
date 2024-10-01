@@ -47,13 +47,10 @@ export default class extends Controller {
 
   // Update lines based on local data
   update_chart() {
-    console.log('allo')
     // first step is to gather all dates of the prices, to mark them as labels
     const data = Object.values(this.item_data)
-    console.log(data)
     const dates = data.map(o => o.prices).flat().map(o => o.date).sort().filter((v, i, a) => a.indexOf(v) === i);
     chart.data.labels = dates
-    console.log(dates)
 
     // Clean the chart
     chart.data.datasets = []
@@ -64,7 +61,6 @@ export default class extends Controller {
         var price = this.item_data[id].prices.find(o => o.date === date)
         return price === undefined ? null : price.value
       })
-      console.log(prices)
       this.addData(id, this.item_data[id].name, prices)
     })
 
@@ -82,15 +78,15 @@ export default class extends Controller {
     });
   }
 
-  // unused
-  removeData(id) {
-    var index = 0;
-    for (let dataset of chart.data.datasets) {
-      if (dataset.id === id) {
-        break;
-      }
-      index += 1;
-    }
-    chart.data.datasets.splice(index, 1);
-  }
+  // unused for now
+  // removeData(id) {
+  //   var index = 0;
+  //   for (let dataset of chart.data.datasets) {
+  //     if (dataset.id === id) {
+  //       break;
+  //     }
+  //     index += 1;
+  //   }
+  //   chart.data.datasets.splice(index, 1);
+  // }
 }

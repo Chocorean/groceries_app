@@ -2,8 +2,8 @@
 
 store = Store.first
 
-prod_a = Item.create!(name: 'Dummy 1', store:)
-prod_b = Item.create!(name: 'Dummy 2', store:)
+prod_a = Item.create!(name: 'Dummy 1', store:, weight: 1, unit: Unit.default)
+prod_b = Item.create!(name: 'Dummy 2', store:, weight: 1, unit: Unit.default)
 
 50.times do |i|
   value = Random.rand(20)

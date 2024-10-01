@@ -2,8 +2,6 @@
 
 Rails.application.routes.draw do
   root 'prices#index'
-  resources :prices, only: %i[index create]
-  resources :items, only: %i[index show] do
-    get 'search', on: :collection
-  end
+  resources :prices, only: %i[new create]
+  resources :items, only: %i[index show new create]
 end

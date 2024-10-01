@@ -1,0 +1,10 @@
+<div style="display: flex; flex-direction: row; justify-content: space-between">
+  <%= link_to root_url do %>
+    &#8592; Return to homepage
+  <% end %>
+  <%= link_to new_price_url do %>
+    Add a new price
+  <% end %>
+</div>
+<h2>Add a new item</h2>
+<%= render 'form' %>
